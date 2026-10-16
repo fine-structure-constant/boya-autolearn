@@ -1,0 +1,5 @@
+{
+  "outputDir": "dist",
+  "playwrightModule": "playwright",
+  "browserExecutable": null
+}

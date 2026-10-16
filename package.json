@@ -1,0 +1,14 @@
+{
+  "name": "readoor-study-panel",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "build": "node build.cjs && node preview.cjs",
+    "test": "node --test tests/core.test.cjs",
+    "test:browser": "node tests/browser.cjs",
+    "test:preview": "node tests/preview.cjs"
+  },
+  "devDependencies": {
+    "playwright": "1.62.1"
+  }
+}

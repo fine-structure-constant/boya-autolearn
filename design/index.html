@@ -1,0 +1,10 @@
+<!doctype html><html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>学习浮窗 · 实现记录</title>
+<style>body{font:16px/1.7 system-ui,sans-serif;max-width:950px;margin:40px auto;padding:0 24px;color:#20342e;background:#f6f8f7}h1,h2{line-height:1.3}table{border-collapse:collapse;width:100%;display:block;overflow:auto}th,td{text-align:left;padding:12px;border-bottom:1px solid #ccd8d2}a{color:#08715b}code{overflow-wrap:anywhere}</style>
+<h1>学习浮窗</h1><p>2026-10-16 · 新建项目，无原有仓库或界面。当前阶段：实现及模拟验证完成。用户已确认 Tampermonkey 使用方式。</p>
+<h2>需求与实现</h2><table><tr><th>编号</th><th>需求</th><th>状态与证据</th></tr><tr><td>REQ-01</td><td>按 Rust 逻辑进行加解密</td><td id="crypto">verified；tests/core.test.cjs：11 项通过，与独立 AES 实现逐字节一致</td></tr><tr><td>REQ-02</td><td>可拖动浮窗、虚拟进度、可调学习时间</td><td id="ui">verified in mock；浏览器验证输入、折叠、窄屏布局；tests/preview.cjs 验证拖动、增长与暂停；桌面和窄屏截图已检查。真视频全屏留待手工检查</td></tr><tr><td>REQ-03</td><td>可自主控制提交与自动改写</td><td id="network">verified in mock；tests/browser.cjs 覆盖 Fetch、XHR、表单、手动提交、取消、章节重置；真实网站未验证</td></tr></table>
+<h2>设计建议与决定</h2><p>DEC-01：accepted。用户确认油猴脚本；右侧可拖动浮窗，手动提交或改写后续上报。DEC-02：proposed，常规实现选择：白底、青绿操作色，真实与虚拟进度分开。</p>
+<h2>使用约束</h2><p>只处理精确匹配的 pStatIf 上报接口；默认不改写。只操作当前章节。令牌不落盘、不导出、不显示。浮窗具有标签、键盘焦点、状态文字和窄屏布局。视频处于跨域 iframe 或网站使用 Worker/sendBeacon 时可能无法捕获；等待真实上报时不允许提交。</p>
+<h2>预览</h2><p id="preview">输出目录中的「本地演示.html」「桌面预览.png」「窄屏预览.png」来自实现及模拟请求，不代表真实平台验证。演示页通过页面策略禁用网络连接。</p>
+<h2>待完成</h2><p id="pending">目标网站的读取工具未能访问视频页面；登录后平台验证留给用户。跨域 iframe、Worker、sendBeacon 上报不支持；若网站使用这些机制则需要另外适配。实际视频全屏为 manual check remaining。</p>
+<h2>功能映射</h2><p><a href="../src/core.js">加解密与请求体逻辑</a> · <a href="../src/runtime.js">页面接入与生命周期</a> · <a href="../src/panel.js">浮窗界面</a></p>
+<h2>记录</h2><p>2026-10-16：用户明确使用 Tampermonkey。以真实请求模板替代 Rust 中写死的课程信息；避免错误章节和默认发送。</p>
